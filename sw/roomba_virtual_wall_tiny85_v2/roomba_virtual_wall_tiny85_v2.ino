@@ -1,13 +1,27 @@
 
+// attiny low power mode http://www.technoblogy.com/show?KX0
+//prepare arduino uno as isp programmer https://highlowtech.org/?p=1706
+//  - burn the ISP programmer sketch
+//attiny programming http://highlowtech.org/?p=1695
+//  - install boards
+//  - select boards, ATTiny uc
+//  - select processor attiny85
+//  - set clock at 8 MHz Internal
+//  * compile
+// ** Use original Arduino UNO
+
+
 #include <avr/pgmspace.h>
+#include <avr/sleep.h>
 
 #include "tiny_IRremote.h"
 #include "tiny_IRremoteInt.h"
 
-#define LED_PIN           0  //Arduino pin 0 == ATTiny85 physical pin 5
+#define LED_PIN           3  //Arduino pin 0 == ATTiny85 physical pin 5
 #define IR_LED_PIN        38 //Arduino pin 4? == ATTiny85 physical pin 3
 #define BAT_LEVEL_PIN     2 //"P2", physical
 #define BAT_LEVEL_INPUT   1 //Corresponds to PIN_2, physical 7 
+#define MAX_TIME_SEC      2 * 60 * 60 //Max run time in seconds. Will shutdown after this time
 
 //En el ATTiny el indicador aún no funciona como quisiera
 //BEGIN GENERATED CODE
@@ -25,6 +39,9 @@
 const PROGMEM uint8_t LED_LEVELS[] = {0x19,0x33,0x4d,0x66,0x80,0x80,0x26,0x4c,0x73,0x99,0x9a,0x9a,0x3b,0x77,0xb3,0xb3,0xb3,0xb3,0x65,0xcb,0xcd,0xcd,0xcd,0xcd,0xe3,0xe6,0xe6,0xe6,0xe6,0xe6,0xff,0xff,0xff,0xff,0xff,0xff};
 //END GENERATED CODE
 
+// Utility macro
+#define adc_disable() (ADCSRA &= ~(1<<ADEN)) // disable ADC (before power-off)
+
 IRsend irsend;
 unsigned int counter = 0;
 int last_led_val = 0;
@@ -35,12 +52,23 @@ void setup()
   pinMode(LED_PIN, OUTPUT);
   pinMode(BAT_LEVEL_PIN, INPUT);
   irsend.enableIROut(IR_LED_PIN);
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 }
 
 void send_beacon() {
   irsend.mark(1000);
   irsend.space(1000);
 }
+
+void enterSleep (void)
+{
+  adc_disable();
+  //digitalWrite(LED_PIN, 0);
+
+  sleep_enable();
+  sleep_cpu();
+}
+
 
 float read_battery_voltage() {
   int sensorValue = analogRead(BAT_LEVEL_INPUT);
@@ -82,4 +110,6 @@ void loop()
   send_beacon();
   float v1 = read_battery_voltage();
   update_led_status(v1);
+  if(micros() > MAX_TIME_SEC * 1000000)
+    enterSleep();
 }
