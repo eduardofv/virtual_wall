@@ -1,0 +1,245 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MCU_Microchip_ATtiny:ATtiny85-20PU U1
+U 1 1 5F1600B0
+P 5300 3350
+F 0 "U1" H 4771 3396 50  0000 R CNN
+F 1 "ATtiny85-20PU" H 4771 3305 50  0000 R CNN
+F 2 "Package_DIP:DIP-8_W7.62mm" H 5300 3350 50  0001 C CIN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2586-avr-8-bit-microcontroller-attiny25-attiny45-attiny85_datasheet.pdf" H 5300 3350 50  0001 C CNN
+	1    5300 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5F160EF9
+P 6900 2800
+F 0 "R1" V 6693 2800 50  0000 C CNN
+F 1 "2.2K" V 6784 2800 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 6830 2800 50  0001 C CNN
+F 3 "~" H 6900 2800 50  0001 C CNN
+	1    6900 2800
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5F161C68
+P 6900 3450
+F 0 "R2" V 6693 3450 50  0000 C CNN
+F 1 "47" V 6784 3450 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 6830 3450 50  0001 C CNN
+F 3 "~" H 6900 3450 50  0001 C CNN
+	1    6900 3450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:LED D1
+U 1 1 5F162297
+P 7450 2800
+F 0 "D1" H 7443 2545 50  0000 C CNN
+F 1 "LED" H 7443 2636 50  0000 C CNN
+F 2 "Connector_PinHeader_2.00mm:PinHeader_1x02_P2.00mm_Vertical" H 7450 2800 50  0001 C CNN
+F 3 "~" H 7450 2800 50  0001 C CNN
+	1    7450 2800
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR04
+U 1 1 5F1659CF
+P 5300 4500
+F 0 "#PWR04" H 5300 4250 50  0001 C CNN
+F 1 "GND" H 5305 4327 50  0000 C CNN
+F 2 "" H 5300 4500 50  0001 C CNN
+F 3 "" H 5300 4500 50  0001 C CNN
+	1    5300 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR05
+U 1 1 5F165E0F
+P 7650 3600
+F 0 "#PWR05" H 7650 3350 50  0001 C CNN
+F 1 "GND" H 7655 3427 50  0000 C CNN
+F 2 "" H 7650 3600 50  0001 C CNN
+F 3 "" H 7650 3600 50  0001 C CNN
+	1    7650 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR03
+U 1 1 5F1675A4
+P 5300 2350
+F 0 "#PWR03" H 5300 2200 50  0001 C CNN
+F 1 "+5V" H 5315 2523 50  0000 C CNN
+F 2 "" H 5300 2350 50  0001 C CNN
+F 3 "" H 5300 2350 50  0001 C CNN
+	1    5300 2350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5300 2750 5300 2350
+Wire Wire Line
+	5900 3450 6750 3450
+Wire Wire Line
+	5900 3350 6750 3350
+Wire Wire Line
+	7050 2800 7300 2800
+Wire Wire Line
+	7600 3450 7650 3450
+Wire Wire Line
+	7650 3450 7650 3600
+Wire Wire Line
+	6750 2800 6750 3350
+Wire Wire Line
+	7050 3450 7300 3450
+Wire Wire Line
+	7700 2800 7700 3450
+$Comp
+L Device:R R3
+U 1 1 5F1ADB90
+P 6900 4000
+F 0 "R3" V 6693 4000 50  0000 C CNN
+F 1 "10K" V 6784 4000 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 6830 4000 50  0001 C CNN
+F 3 "~" H 6900 4000 50  0001 C CNN
+	1    6900 4000
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR06
+U 1 1 5F1AE588
+P 7300 3850
+F 0 "#PWR06" H 7300 3700 50  0001 C CNN
+F 1 "+5V" H 7315 4023 50  0000 C CNN
+F 2 "" H 7300 3850 50  0001 C CNN
+F 3 "" H 7300 3850 50  0001 C CNN
+	1    7300 3850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5900 3550 6750 3550
+Wire Wire Line
+	6750 3550 6750 4000
+Wire Wire Line
+	7050 4000 7300 4000
+Wire Wire Line
+	7300 4000 7300 3850
+$Comp
+L Connector:Conn_01x01_Female J3
+U 1 1 5F1B4AE2
+P 5950 2300
+F 0 "J3" H 5978 2326 50  0000 L CNN
+F 1 "Battery Level" H 5978 2235 50  0000 L CNN
+F 2 "Connector_Pin:Pin_D1.4mm_L8.5mm_W2.8mm_FlatFork" H 5950 2300 50  0001 C CNN
+F 3 "~" H 5950 2300 50  0001 C CNN
+	1    5950 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6200 2300 6200 3250
+$Comp
+L Connector:Conn_01x01_Male J1
+U 1 1 5F1B98F4
+P 3500 2500
+F 0 "J1" H 3608 2681 50  0000 C CNN
+F 1 "POWER IN" H 3608 2590 50  0000 C CNN
+F 2 "Connector_Pin:Pin_D1.4mm_L8.5mm_W2.8mm_FlatFork" H 3608 2589 50  0001 C CNN
+F 3 "~" H 3500 2500 50  0001 C CNN
+	1    3500 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J2
+U 1 1 5F1BC82A
+P 3500 4000
+F 0 "J2" H 3608 4271 50  0000 C CNN
+F 1 "POWER IN" H 3608 4180 50  0000 C CNN
+F 2 "Connector_Pin:Pin_D1.4mm_L8.5mm_W2.8mm_FlatFork" H 3608 4089 50  0000 C CNN
+F 3 "~" H 3500 4000 50  0001 C CNN
+	1    3500 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR01
+U 1 1 5F1BD006
+P 4000 2350
+F 0 "#PWR01" H 4000 2200 50  0001 C CNN
+F 1 "+5V" H 4015 2523 50  0000 C CNN
+F 2 "" H 4000 2350 50  0001 C CNN
+F 3 "" H 4000 2350 50  0001 C CNN
+	1    4000 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR02
+U 1 1 5F1BDB08
+P 4000 4450
+F 0 "#PWR02" H 4000 4200 50  0001 C CNN
+F 1 "GND" H 4000 4050 50  0000 C CNN
+F 2 "" H 4000 4450 50  0001 C CNN
+F 3 "" H 4000 4450 50  0001 C CNN
+	1    4000 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 4000 4000 4000
+Wire Wire Line
+	6200 3250 5900 3250
+Wire Wire Line
+	5750 2300 6200 2300
+Wire Wire Line
+	5300 3950 5300 4250
+Wire Wire Line
+	3500 2500 3700 2500
+Wire Wire Line
+	4000 2500 4000 2350
+Connection ~ 3700 2500
+Wire Wire Line
+	3700 2500 4000 2500
+$Comp
+L Device:LED D2
+U 1 1 5F16286C
+P 7450 3450
+F 0 "D2" H 7443 3195 50  0000 C CNN
+F 1 "IR LED" H 7443 3286 50  0000 C CNN
+F 2 "LED_THT:LED_D5.0mm" H 7450 3450 50  0001 C CNN
+F 3 "~" H 7450 3450 50  0001 C CNN
+	1    7450 3450
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7650 3450 7700 3450
+Connection ~ 7650 3450
+Wire Wire Line
+	7700 2800 7600 2800
+Wire Wire Line
+	7700 3450 7700 4250
+Wire Wire Line
+	7700 4250 5300 4250
+Connection ~ 7700 3450
+Connection ~ 5300 4250
+Wire Wire Line
+	5300 4250 5300 4500
+Wire Wire Line
+	5300 4250 4000 4250
+Connection ~ 4000 4200
+Wire Wire Line
+	4000 4000 4000 4250
+Connection ~ 4000 4250
+Wire Wire Line
+	4000 4250 4000 4450
+$EndSCHEMATC
