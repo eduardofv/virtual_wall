@@ -18,13 +18,13 @@
 #include "tiny_IRremote.h"
 #include "tiny_IRremoteInt.h"
 
-#define LED_PIN           3  //Arduino pin 0 == ATTiny85 physical pin 5 para el prototipo 2
+#define LED_PIN           0  //Arduino pin 0 == ATTiny85 physical pin 5 para el prototipo 2
                              //Arduino pin 3 == ATTiny85 physical pin 2 para el prototipo 1
 #define IR_LED_PIN        38 //Arduino pin 4? == ATTiny85 physical pin 3
 #define BAT_LEVEL_PIN     2 //"P2", physical
 #define BAT_LEVEL_INPUT   1 //Corresponds to PIN_2, physical 7 
-#define MAX_TIME_SEC      2*60*60 //Test
-//#define MAX_TIME_SEC      2 * 60 * 60 //Max run time in seconds. Will shutdown after this time (2h)
+//#define MAX_TIME_SEC      20 //Test
+#define MAX_TIME_SEC      2 * 60 * 60 //Max run time in seconds. Will shutdown after this time (2h)
 
 //En el ATTiny el indicador aún no funciona como quisiera
 //BEGIN GENERATED CODE
