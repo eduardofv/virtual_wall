@@ -18,13 +18,13 @@
 #include "tiny_IRremote.h"
 #include "tiny_IRremoteInt.h"
 
-#define LED_PIN           0  //Arduino pin 0 == ATTiny85 physical pin 5 para el prototipo 2
+#define LED_PIN           3  //Arduino pin 0 == ATTiny85 physical pin 5 para el prototipo 2
                              //Arduino pin 3 == ATTiny85 physical pin 2 para el prototipo 1
 #define IR_LED_PIN        38 //Arduino pin 4? == ATTiny85 physical pin 3
 #define BAT_LEVEL_PIN     2 //"P2", physical
 #define BAT_LEVEL_INPUT   1 //Corresponds to PIN_2, physical 7 
-//#define MAX_TIME_SEC      20 //Test
-#define MAX_TIME_SEC      2 * 60 * 60 //Max run time in seconds. Will shutdown after this time (2h)
+#define MAX_TIME_SEC      2*60*60 //Test
+//#define MAX_TIME_SEC      2 * 60 * 60 //Max run time in seconds. Will shutdown after this time (2h)
 
 //En el ATTiny el indicador aún no funciona como quisiera
 //BEGIN GENERATED CODE
@@ -49,8 +49,8 @@ IRsend irsend;
 unsigned int counter = 0;
 int last_led_val = 0;
 
-void setup()
-{
+
+void setup() {
   //TCCR0B = TCCR0B & 0b11111000 | 0b001;
   pinMode(LED_PIN, OUTPUT);
   pinMode(BAT_LEVEL_PIN, INPUT);
@@ -58,13 +58,14 @@ void setup()
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 }
 
+
 void send_beacon() {
   irsend.mark(1000);
   irsend.space(1000);
 }
 
-void enterSleep (void)
-{
+
+void enter_sleep(void) {
   //Sleep mode decreses current from ~40mA to ~14mA in my circuit
   //  voltage booster still uses quite some energy, though
   //  maybe later build a latching circuit 
@@ -75,11 +76,10 @@ void enterSleep (void)
     delay(100);
     digitalWrite(LED_PIN, 1);
     delay(100);
-    digitalWrite(LED_PIN, 0);
   }
   
   adc_disable();
-  //digitalWrite(LED_PIN, 0);
+  digitalWrite(LED_PIN, 0);
 
   sleep_enable();
   sleep_cpu();
@@ -92,6 +92,7 @@ float read_battery_voltage() {
   float voltage = sensorValue * (5.0 / 1023.0);
   return voltage;
 }
+
 
 void update_led_status(float v1) {
   counter += 1;
@@ -112,7 +113,7 @@ void update_led_status(float v1) {
     led_val = pgm_read_byte_near(led_val_index);
   }
 
-  if(last_led_val != led_val){
+  if(last_led_val != led_val) {
     analogWrite(LED_PIN, led_val);
     last_led_val = led_val;
   }
@@ -121,11 +122,11 @@ void update_led_status(float v1) {
     counter = 0;
 }
 
-void loop()
-{
+
+void loop() {
   send_beacon();
   float v1 = read_battery_voltage();
   update_led_status(v1);
-  if(millis() > MAX_TIME_SEC * 1000)
-    enterSleep();
+  if(millis() > ((unsigned long)(MAX_TIME_SEC) * 1000))
+    enter_sleep();
 }
