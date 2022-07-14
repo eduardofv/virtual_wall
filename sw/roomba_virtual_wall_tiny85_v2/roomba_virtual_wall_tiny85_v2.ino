@@ -7,9 +7,10 @@
 //  - select boards, ATTiny uc
 //  - select processor attiny85
 //  - set clock at 8 MHz Internal
+//    - El primer attiny lo tengo que poner a 8Mhz pero el segundo a 1Mhz ??!!
 //  * compile
 // ** Use original Arduino UNO
-
+// attiny85 pinout https://nerdytechy.com/attiny85-microcontroller-guide/
 
 #include <avr/pgmspace.h>
 #include <avr/sleep.h>
@@ -17,11 +18,13 @@
 #include "tiny_IRremote.h"
 #include "tiny_IRremoteInt.h"
 
-#define LED_PIN           3  //Arduino pin 0 == ATTiny85 physical pin 5
+#define LED_PIN           0  //Arduino pin 0 == ATTiny85 physical pin 5 para el prototipo 2
+                             //Arduino pin 3 == ATTiny85 physical pin 2 para el prototipo 1
 #define IR_LED_PIN        38 //Arduino pin 4? == ATTiny85 physical pin 3
 #define BAT_LEVEL_PIN     2 //"P2", physical
 #define BAT_LEVEL_INPUT   1 //Corresponds to PIN_2, physical 7 
-#define MAX_TIME_SEC      2 * 60 * 60 //Max run time in seconds. Will shutdown after this time
+//#define MAX_TIME_SEC      20 //Test
+#define MAX_TIME_SEC      2 * 60 * 60 //Max run time in seconds. Will shutdown after this time (2h)
 
 //En el ATTiny el indicador aún no funciona como quisiera
 //BEGIN GENERATED CODE
@@ -62,6 +65,19 @@ void send_beacon() {
 
 void enterSleep (void)
 {
+  //Sleep mode decreses current from ~40mA to ~14mA in my circuit
+  //  voltage booster still uses quite some energy, though
+  //  maybe later build a latching circuit 
+  
+  //Shutdown notification
+  for(int i=0; i<50; i++){
+    digitalWrite(LED_PIN, 0);
+    delay(100);
+    digitalWrite(LED_PIN, 1);
+    delay(100);
+    digitalWrite(LED_PIN, 0);
+  }
+  
   adc_disable();
   //digitalWrite(LED_PIN, 0);
 
@@ -110,6 +126,6 @@ void loop()
   send_beacon();
   float v1 = read_battery_voltage();
   update_led_status(v1);
-  if(micros() > MAX_TIME_SEC * 1000000)
+  if(millis() > MAX_TIME_SEC * 1000)
     enterSleep();
 }
