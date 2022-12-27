@@ -19,3 +19,11 @@ Many of this things are pretty rough, specially the PCB and the 3D printed enclo
 - Generar nueva version (v3)
 - Documento de descripción del proyecto, referencias a proyectos originales
 - Fotos / Video
+
+## Changelog
+
+- 2022-12-27:  New version with no VDC monitoring. Uses TP4056 + 18650 battery
+- Started 2020
+## Resources
+
+- 

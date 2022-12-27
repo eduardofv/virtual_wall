@@ -8,6 +8,7 @@
 //  - select processor attiny85
 //  - set clock at 8 MHz Internal
 //    - El primer attiny lo tengo que poner a 8Mhz pero el segundo a 1Mhz ??!!
+//    - 20221227 - Al parecer debe correr a 1Mhz. Seleccionar Tools/Clock Internal 1MHz/Burn bootloader
 //  * compile
 // ** Use original Arduino UNO
 // attiny85 pinout https://nerdytechy.com/attiny85-microcontroller-guide/
@@ -18,12 +19,12 @@
 #include "tiny_IRremote.h"
 #include "tiny_IRremoteInt.h"
 
-#define LED_PIN           0  //Arduino pin 0 == ATTiny85 physical pin 5 para el prototipo 2
+#define LED_PIN           3  //Arduino pin 0 == ATTiny85 physical pin 5 para el prototipo 2
                              //Arduino pin 3 == ATTiny85 physical pin 2 para el prototipo 1
 #define IR_LED_PIN        38 //Arduino pin 4? == ATTiny85 physical pin 3
 #define BAT_LEVEL_PIN     2 //"P2", physical
 #define BAT_LEVEL_INPUT   1 //Corresponds to PIN_2, physical 7 
-//#define MAX_TIME_SEC      20 //Test
+//#define MAX_TIME_SEC      40 //Test
 #define MAX_TIME_SEC      2 * 60 * 60 //Max run time in seconds. Will shutdown after this time (2h)
 
 //En el ATTiny el indicador aún no funciona como quisiera
@@ -125,8 +126,8 @@ void update_led_status(float v1) {
 
 void loop() {
   send_beacon();
-  float v1 = read_battery_voltage();
-  update_led_status(v1);
+  //float v1 = read_battery_voltage();
+  update_led_status(5.0);
   if(millis() > ((unsigned long)(MAX_TIME_SEC) * 1000))
     enter_sleep();
 }
